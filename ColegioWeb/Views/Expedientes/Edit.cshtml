@@ -1,0 +1,48 @@
+﻿@model ColegioWeb.Models.Expediente
+
+@{
+    ViewData["Title"] = "Editar expediente";
+}
+
+<h1>Editar expediente</h1>
+
+<hr />
+<form asp-action="Edit">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <input type="hidden" asp-for="ExpedienteId" />
+
+    <div class="form-group">
+        <label asp-for="AlumnoId" class="control-label"></label>
+        @Html.DropDownList("AlumnoId", null, "-- Seleccione un alumno --", new { @class = "form-control" })
+        <span asp-validation-for="AlumnoId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MateriaId" class="control-label"></label>
+        @Html.DropDownList("MateriaId", null, "-- Seleccione una materia --", new { @class = "form-control" })
+        <span asp-validation-for="MateriaId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="NotaFinal" class="control-label"></label>
+        <input asp-for="NotaFinal" class="form-control" />
+        <span asp-validation-for="NotaFinal" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Observaciones" class="control-label"></label>
+        <textarea asp-for="Observaciones" class="form-control"></textarea>
+        <span asp-validation-for="Observaciones" class="text-danger"></span>
+    </div>
+
+    <br />
+    <div class="form-group">
+        <input type="submit" value="Guardar cambios" class="btn btn-primary" />
+        <a asp-action="Index" class="btn btn-secondary">Volver</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

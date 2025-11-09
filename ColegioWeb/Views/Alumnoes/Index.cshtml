@@ -1,0 +1,37 @@
+﻿@model IEnumerable<ColegioWeb.Models.Alumno>
+
+@{
+    ViewData["Title"] = "Alumnos";
+}
+
+<h1>Alumnos</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Nuevo alumno</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th>Fecha de nacimiento</th>
+            <th>Correo</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Nombres</td>
+                <td>@item.Apellidos</td>
+                <td>@item.FechaNacimiento?.ToString("yyyy-MM-dd")</td>
+                <td>@item.Correo</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.AlumnoId">Editar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

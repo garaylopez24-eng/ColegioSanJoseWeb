@@ -1,0 +1,63 @@
+﻿@model IEnumerable<ColegioWeb.Models.ViewModels.PromedioAlumnoVM>
+
+@{
+    ViewData["Title"] = "Promedio de notas por alumno";
+}
+
+<h1>Promedio de notas por alumno</h1>
+
+@if (!Model.Any())
+{
+    <p>No hay expedientes registrados todavía.</p>
+}
+else
+{
+    <canvas id="grafica" width="400" height="200"></canvas>
+
+    <table class="table table-bordered mt-4">
+        <thead>
+            <tr>
+                <th>Alumno</th>
+                <th>Promedio</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.NombreCompleto</td>
+                    <td>@item.Promedio.ToString("0.00")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const labels = [@string.Join(",", Model.Select(m => $"'{m.NombreCompleto}'"))];
+        const data = [@string.Join(",", Model.Select(m => m.Promedio.ToString(System.Globalization.CultureInfo.InvariantCulture)))];
+
+        const ctx = document.getElementById('grafica').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Promedio',
+                    data: data,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 10
+                    }
+                }
+            }
+        });
+    </script>
+}
